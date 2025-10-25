@@ -40,7 +40,6 @@ p.lead {
   font-size: 0.95rem;
 }
 
-/* filter buttons */
 .filters {
   display: flex;
   gap: 8px;
@@ -68,7 +67,6 @@ p.lead {
   transform: translateY(-3px);
 }
 
-/* gallery grid */
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -118,7 +116,6 @@ p.lead {
   color: #c3d3dd;
 }
 
-/* responsive */
 @media (max-width: 1100px) {
   .gallery {
     grid-template-columns: repeat(3, 1fr);
@@ -135,7 +132,6 @@ p.lead {
   }
 }
 
-/* lightbox */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -207,7 +203,6 @@ p.lead {
   transform: scale(0.98);
 }
 
-/* next/prev large buttons */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -230,7 +225,6 @@ p.lead {
   right: 18px;
 }
 
-/* small touches */
 .badge {
   display: inline-block;
   padding: 6px 8px;
@@ -239,7 +233,6 @@ p.lead {
   font-size: 0.8rem;
 }
 
-/* smooth transitions for filters */
 .card {
   transition: transform 0.25s, opacity 0.25s, filter 0.25s;
 }
@@ -249,14 +242,12 @@ p.lead {
   filter: grayscale(0.6);
 }
 
-/* caption */
 .caption {
   font-size: 0.85rem;
   color: #dceff7;
   margin-top: 8px;
 }
 
-/* keyboard hint */
 .hint {
   font-size: 0.8rem;
   color: #90a9b8;

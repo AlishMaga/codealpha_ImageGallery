@@ -15,7 +15,6 @@
   let currentIndex = 0;
   let activeFilter = "all";
 
-  /* Helper: open lightbox for a given index */
   function openLightbox(index) {
     const card = cards[index];
     if (!card) return;
@@ -47,14 +46,12 @@
     openLightbox(visible[prevI]);
   }
 
-  /* returns array of indexes for currently visible (non-filtered) cards */
   function getVisibleIndexes() {
     return cards
       .filter((c) => !c.classList.contains("hidden"))
       .map((c) => Number(c.dataset.index));
   }
 
-  /* Filters */
   filters.forEach((button) => {
     button.addEventListener("click", () => {
       filters.forEach((b) => b.classList.remove("active"));
@@ -73,28 +70,22 @@
         c.style.display = "";
       } else {
         c.classList.add("hidden", "dim");
-        // keep it in DOM but visually dimmed; we set display none for accessibility
         c.style.display = "block";
       }
     });
   }
 
-  // Card click -> open lightbox
   cards.forEach((c, idx) => {
     c.addEventListener("click", () => openLightbox(idx));
   });
 
-  // Lightbox controls
   lbNext.addEventListener("click", showNext);
   lbPrev.addEventListener("click", showPrev);
   lbClose.addEventListener("click", closeLightbox);
-
-  // Overlay click to close (but not when clicking inner content)
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // keyboard navigation
   document.addEventListener("keydown", (e) => {
     if (lightbox.classList.contains("open")) {
       if (e.key === "ArrowRight") showNext();
@@ -103,10 +94,8 @@
     }
   });
 
-  // global next/prev for gallery order (regardless of filter)
   let galleryOrder = cards.map((c) => Number(c.dataset.index));
   prevAll.addEventListener("click", () => {
-    // show previous visible or rotate whole gallery
     const visible = getVisibleIndexes();
     if (visible.length === 0) return;
     const idx = visible.indexOf(currentIndex);
@@ -122,26 +111,21 @@
     openLightbox(nextIdx);
   });
 
-  // Initialize
   applyFilter("all");
 
-  // Accessibility: trap focus when lightbox open (simple)
   lightbox.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {
-      // keep focus within the lb-close and controls
       e.preventDefault();
       lbClose.focus();
     }
   });
 
-  // Smooth image loading: lazy load with IntersectionObserver
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             const img = e.target.querySelector("img");
-            // already loaded since we used full URLs, but this is where you'd swap data-src
             img.loading = "lazy";
             io.unobserve(e.target);
           }
@@ -151,8 +135,6 @@
     );
     cards.forEach((c) => io.observe(c));
   }
-
-  // Responsive: hide large nav buttons on small screens
   function updateNavVisibility() {
     if (window.innerWidth < 760) {
       prevAll.style.display = "none";
